@@ -47,11 +47,11 @@ def run(i):
         raise Exception(f"not 16:9 but {gias}")
 
 
-    godshiz = fifs['formats'][4]['url']
-    #godshiz = streamurl
+    #godshiz = fifs['formats'][4]['url']
+    godshiz = streamurl
     if godshiz == None or fifs['duration'] < 10 or fifs['duration'] > config["maxSecondsVideoLength"]:
         raise Exception(f"video too long it is {fifs['duration']} and max {config['maxSecondsVideoLength']}")
-    print("m3u8 url = " + godshiz)
+    #print("m3u8 url = " + godshiz)
     with open(f'{str(dir[i])}\\livelyinfo.json', 'r+') as f:
         data = json.load(f)
         data['Contact'] = godshiz
@@ -61,25 +61,25 @@ def run(i):
         f.seek(0)
         json.dump(data, f, indent=4)
         f.truncate()
-    print(fifs['duration'])
+
+    print(f"Durations: {fifs['duration']} Resolution: {fifs['resolution']} Aspect Ratio: {gias} Title: {fifs['title']} URL: {streamurl} Monitor: {i}")
     dur[i] = (fifs['duration'])
     print(str(dur))
-    print(f"done monitor {i}")
     fif.append(f"https://www.pornhub.com{vid}")
 
 def d(x):
     while True:
-
         while True:
             try:
                 run(x)
                 break
             except Exception as e:
                 print(f"error on video {x} with {e}")
-        print("refreash dick")
-        print(f'{config["Lively.exeLocation4"]} setwp --file \"{dir[i]}\" --monitor {x + 1}')
+        print(f"Sending video update command to lively on monitor {str(x)}")
         os.system(f'{config["Lively.exeLocation4"]} setwp --file "{dir[x]}" --monitor {x + 1}')
+        print(f"Starting timer for monitor {str(x)}")
         time.sleep(dur[x])
+        print(f"done waiting for monitor {str(x)}")
 
 
 def fe():
@@ -97,12 +97,12 @@ def keyboard_callback(event):
 
 
 if __name__ == "__main__":
-    with open("config.txt") as f:
+    with open("config.json") as f:
         config = json.load(f)
     nm = len(config["LocationOfLivelyWalpapers"])
     config["Lively.exeLocation4"] = config["Lively.exeLocation"].replace(" ", '" "')
 
-    os.startfile(config["Lively.exeLocation"])
+    #os.startfile(config["Lively.exeLocation"])
 
     dir = []; fif = []; dur = {}; lim = []
     for i in config["LocationOfLivelyWalpapers"]: dir.append(i)
