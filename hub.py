@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import os
 import json
 import random
-from datetime import date
-# returns current date and time
 import time
 import threading
 from winput import *
@@ -46,7 +44,7 @@ def run(i):
     tuy = lcm(int(gias[0]), int(gias[1]))
     gias = f'{round(tuy / 1080)}:{round(tuy / 1920)}'
 
-    if str(gias) != "16:9" and config["disableNon16:9Videos"] is False:
+    if str(gias) != "16:9" and config["disableNon16:9Videos"] is True:
         raise Exception(f"not 16:9 but {gias}")
 
 
@@ -126,7 +124,7 @@ if __name__ == "__main__":
         # creating thread
     for i in range(nm):
         t = threading.Thread(target=d, args=(i,))
-        print(f'{i} threat created')
+        print(f'{i} Monitor Created')
         t.start()
 
     # both threads completely executed
