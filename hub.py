@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import os
 import json
 import random
+from datetime import date
+# returns current date and time
 import time
 import threading
 from winput import *
@@ -38,7 +40,8 @@ def run(i):
     print(streamurl)
 
     fifs = YoutubeDL().extract_info(streamurl, download=False)
-
+    fancyduration = datetime.timedelta(seconds=fifs['duration'])
+    print(f"Video duration: {fancyduration}")
     gias = fifs["resolution"].split("x")
     tuy = lcm(int(gias[0]), int(gias[1]))
     gias = f'{round(tuy / 1080)}:{round(tuy / 1920)}'
@@ -62,8 +65,11 @@ def run(i):
         json.dump(data, f, indent=4)
         f.truncate()
 
-    print(f"Durations: {fifs['duration']} Resolution: {fifs['resolution']} Aspect Ratio: {gias} Title: {fifs['title']} URL: {streamurl} Monitor: {i}")
+    print(f"Duration: {fancyduration} Resolution: {fifs['resolution']} Aspect Ratio: {gias} Monitor: {i} URL: {streamurl} Title: {fifs['title']}")
     dur[i] = (fifs['duration'])
+
+
+
     print(str(dur))
     fif.append(f"https://www.pornhub.com{vid}")
 
@@ -74,12 +80,12 @@ def d(x):
                 run(x)
                 break
             except Exception as e:
-                print(f"error on video {x} with {e}")
+                print(f"Error on monitor {str(x)}:\n {e}")
         print(f"Sending video update command to lively on monitor {str(x)}")
         os.system(f'{config["Lively.exeLocation4"]} setwp --file "{dir[x]}" --monitor {x + 1}')
         print(f"Starting timer for monitor {str(x)}")
         time.sleep(dur[x])
-        print(f"done waiting for monitor {str(x)}")
+        print(f"Done waiting for monitor {str(x)}")
 
 
 def fe():
