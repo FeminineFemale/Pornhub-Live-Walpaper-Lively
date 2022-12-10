@@ -1,0 +1,13 @@
+{
+        "Lively.exeLocation": "C:\\Users\\USERNAME\\AppData\\Local\\Programs\\Lively Wallpaper\\Lively.exe",
+        "LocationOfLivelyWalpapers": [
+    	"C:\\examplemonitor1",
+    	"C:\\examplemonitor2",
+    	"C:\\examplemonitor3"],
+        "maxSecondsVideoLength": 600,
+        "searchPornhubUrl": "https://www.pornhub.com/",
+        "dontPlaySameVidTwicePerCurrentRun": true,
+        "disableNon16:9Videos": true,
+        "keyboardDebugForInteger": true,
+        "keybindToTurnOffInteger/NotASCII": 163
+}
